@@ -17,23 +17,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
+
 public class MainActivity extends AppCompatActivity {
 
-    private String gameWord;
     private List<String> wordLetters = new ArrayList<>();
+
+    // Layout variables
+    TextView tvWord;
+
+    // Game variables
+    private Player player;
+    private String gameWord;
+    private String solution;
+    private int intents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tvWord = findViewById(R.id.test);
+
         getWord();
         //wordToArrayList();
     }
 
     private void getWord() {
-        final TextView textView = findViewById(R.id.test);
-
         // Instantiate the RequestQueue
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://palabras-aleatorias-public-api.herokuapp.com/random";
@@ -48,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    textView.setText(gameWord);
-                }, error -> textView.setText("That didn't work!"));
+                    tvWord.setText(gameWord);
+                }, error -> tvWord.setText("That didn't work!"));
 
         // Add the request to the RequestQueue
         queue.add(jsonObjectRequest);
