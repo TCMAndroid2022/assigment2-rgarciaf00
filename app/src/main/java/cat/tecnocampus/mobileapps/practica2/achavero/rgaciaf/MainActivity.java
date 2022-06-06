@@ -2,8 +2,10 @@ package cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.adapters.RankingAdapter;
+import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.database.PlayerController;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvWord;
 
     // Game variables
-    private Player player;
+    private String nickname;
     private String gameWord;
     private String solution;
     private int intents;
@@ -38,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras !=null) {
+            nickname = extras.getString("nickname");
+        }
+
+        PlayerController playerController = new PlayerController(getApplication());
+        Player player = playerController.getPlayer(nickname);
         tvWord = findViewById(R.id.test);
 
         getWord();
@@ -73,5 +84,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < length; i++) {
             wordLetters.add(gameWord.substring(i, Math.min(length, i+1)));
         }
+    }
+
+    public void ShowRanking(View view) {
+        Intent myIntent = new Intent(this, Ranking.class);
+        startActivity(myIntent);
     }
 }

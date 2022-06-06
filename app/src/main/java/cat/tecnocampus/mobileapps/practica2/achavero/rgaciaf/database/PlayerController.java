@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.contracts.GameDAO;

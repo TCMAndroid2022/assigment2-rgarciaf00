@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Game;
@@ -13,7 +14,7 @@ import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
 @Dao
 public interface PlayerDAO {
-    @Query("SELECT * FROM Player")
+    @Query("SELECT * FROM Player ORDER BY score DESC")
     List<Player> getPlayers();
 
     @Query("SELECT * FROM Player WHERE nickname LIKE :nickname LIMIT 1")

@@ -3,4 +3,5 @@
     <string name="login_text">ENTER YOUR NICKNAME</string>
     <string name="login_et">NICKNAME</string>
     <string name="login_btn">PLAY!</string>
+    <string name="ranking_btn">PLAY AGAIN!</string>
 </resources>
