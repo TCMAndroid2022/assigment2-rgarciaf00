@@ -3,6 +3,7 @@ package cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue
         queue.add(jsonObjectRequest);
+        tvWord.setText(gameWord);
+        Log.v("WORD_TEST", "END WORD");
     }
 
     private void wordToArrayList() {

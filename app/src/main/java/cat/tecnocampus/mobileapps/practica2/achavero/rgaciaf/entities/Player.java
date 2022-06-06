@@ -7,12 +7,24 @@ import androidx.room.PrimaryKey;
 @Entity(indices = {@Index(value = {"nickname"}, unique = true)})
 public class Player {
     @PrimaryKey (autoGenerate = true)
-    int id;
-    String nickname;
-    int score;
+    public int id;
+    public String nickname;
+    public int score;
 
     public Player(String nickname, int score) {
         this.nickname = nickname;
         this.score = score;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

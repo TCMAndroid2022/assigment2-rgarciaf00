@@ -16,8 +16,8 @@ public interface PlayerDAO {
     @Query("SELECT * FROM Player")
     List<Player> getPlayers();
 
-    @Query("SELECT * FROM Player WHERE nickname LIKE :nickname")
-    List<Player> getPlayer(String nickname);
+    @Query("SELECT * FROM Player WHERE nickname LIKE :nickname LIMIT 1")
+    Player getPlayerbyName(String nickname);
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertPlayer(Player player);
