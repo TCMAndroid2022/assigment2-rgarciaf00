@@ -24,11 +24,13 @@ import java.util.Locale;
 import java.util.stream.IntStream;
 
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.database.PlayerController;
+import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Game;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
 public class MainActivity extends AppCompatActivity {
 
     private List<String> wordLetters = new ArrayList<>();
+    PlayerController playerController;
 
     // Layout variables
     TextView tvWord;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Game variables
     private String nickname;
-    private String gameWord;
+    private String gameWord = "PLATANO";
     private String[] inGameWord;
     private int intents;
     private int punctuation;
@@ -57,15 +59,16 @@ public class MainActivity extends AppCompatActivity {
             nickname = extras.getString("nickname");
         }
 
-        PlayerController playerController = new PlayerController(getApplication());
-        Player player = playerController.getPlayer(nickname);
+        playerController = new PlayerController(getApplication());
+
         tvWord = findViewById(R.id.tvWord);
         tvPunctuation = findViewById(R.id.tvPunctuation);
         etWord = findViewById(R.id.etWord);
         etSolve= findViewById(R.id.etSolve);
         btEnter = findViewById(R.id.btEnter);
         btSolve = findViewById(R.id.btSolve);
-        getWord();
+
+        //getWord();
         wordToArrayList();
         createInGameWord();
     }
@@ -142,14 +145,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void calculatePunctuation(){
         if(gameWord.toUpperCase().equals(etSolve.getText().toString().toUpperCase())){
-            punctuation = (int)((wordLetters.size() - intents)/wordLetters.size()*10);
+            float letterSolving = wordLetters.size() - intents;
+            float wordSolving = letterSolving/wordLetters.size();
+            float solving = wordSolving*10;
+            punctuation = (int) solving;
         } else {
             punctuation = 0;
         }
     }
 
     public void ShowRanking(View view) {
+        updateDatabase();
         Intent myIntent = new Intent(this, Ranking.class);
         startActivity(myIntent);
+    }
+
+    public void updateDatabase() {
+        Game game = new Game(gameWord, punctuation, nickname);
+        playerController.insertGame(game);
+
+        int score = 0;
+        List<Game> playerGames = playerController.listPlayerGames(nickname);
+        for(Game g: playerGames) { score += g.getScore(); }
+
+        Player player = playerController.getPlayer(nickname);
+        player.setScore(score);
+        playerController.updatePlayer(player);
     }
 }

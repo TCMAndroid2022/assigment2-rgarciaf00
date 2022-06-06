@@ -3,7 +3,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +16,11 @@ import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
 
     private ArrayList<Player> players = new ArrayList<Player>();
+    private OnPlayerListener onPlayerListener;
 
-    public RankingAdapter(ArrayList<Player> players) {
+    public RankingAdapter(ArrayList<Player> players, OnPlayerListener onPlayerListener) {
         this.players = players;
+        this.onPlayerListener = onPlayerListener;
     }
 
     // Primary methods of the adapter
@@ -27,7 +28,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     @Override
     public RankingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_player, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onPlayerListener);
     }
 
     @Override
@@ -42,6 +43,10 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             int score = player.getScore();
             tvScore.setText(""+score);
 
+            TextView tvPlays = holder.tvPlays;
+            int plays = player.getPlays();
+            tvPlays.setText(""+plays);
+
         } catch (NullPointerException e) {
             Log.e("Adapter", "onBindViewHolder: Null Pointer: " + e.getMessage());
         }
@@ -54,16 +59,30 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
     // The ViewHolder describes and provides access to all the views within each item row
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView tvNickname, tvScore;
+        public TextView tvNickname, tvScore, tvPlays;
+        OnPlayerListener onPlayerListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnPlayerListener onPlayerListener) {
             super(itemView);
 
             tvNickname = (TextView) itemView.findViewById(R.id.player_nickname);
             tvScore = (TextView) itemView.findViewById(R.id.player_score);
+            tvPlays = (TextView) itemView.findViewById(R.id.player_plays);
+            this.onPlayerListener = onPlayerListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onPlayerListener.OnPlayerClick(getBindingAdapterPosition());
+        }
+    }
+
+    public interface OnPlayerListener {
+        void OnPlayerClick(int position);
     }
 
 }

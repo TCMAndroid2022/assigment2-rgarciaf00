@@ -4,11 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.30885416666666665" />
-        <entry key="..\:/Uni Stuff/TecnoCampus/4t/3r Trimestre/AplicacionsMobils/AndroidStudio/Github/assigment2-rgarciaf00/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.16261398176291794" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31567028985507245" />
+        <entry key="app/src/main/res/layout/activity_player_detail.xml" value="0.1539855072463768" />
         <entry key="app/src/main/res/layout/activity_ranking.xml" value="0.16261398176291794" />
-        <entry key="app/src/main/res/layout/item_player.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/item_detail.xml" value="0.1539855072463768" />
+        <entry key="app/src/main/res/layout/item_player.xml" value="0.1" />
       </map>
     </option>
   </component>

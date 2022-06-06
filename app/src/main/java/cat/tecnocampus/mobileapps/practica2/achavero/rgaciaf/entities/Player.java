@@ -10,10 +10,12 @@ public class Player {
     public int id;
     public String nickname;
     public int score;
+    public int plays;
 
-    public Player(String nickname, int score) {
+    public Player(String nickname, int score, int plays) {
         this.nickname = nickname;
         this.score = score;
+        this.plays = plays;
     }
 
     public int getId() {
@@ -27,4 +29,10 @@ public class Player {
     public int getScore() {
         return score;
     }
+
+    public void setScore(int score) { this.score = score; }
+
+    public int getPlays() { return plays; }
+
+    public void setPlays(int plays) { this.plays = plays; }
 }

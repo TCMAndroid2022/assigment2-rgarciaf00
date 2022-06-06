@@ -16,7 +16,7 @@ import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.adapters.RankingAda
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.database.PlayerController;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
-public class Ranking extends AppCompatActivity {
+public class Ranking extends AppCompatActivity implements RankingAdapter.OnPlayerListener {
 
     private RecyclerView recyclerView;
     PlayerController playerController;
@@ -40,7 +40,7 @@ public class Ranking extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        rankingAdapter = new RankingAdapter((ArrayList<Player>) players);
+        rankingAdapter = new RankingAdapter((ArrayList<Player>) players, this);
         recyclerView.setAdapter(rankingAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -56,6 +56,14 @@ public class Ranking extends AppCompatActivity {
 
     public void PlayAgain(View view) {
         Intent myIntent = new Intent(this, Login.class);
+        startActivity(myIntent);
+    }
+
+    @Override
+    public void OnPlayerClick(int position) {
+        Player player = players.get(position);
+        Intent myIntent = new Intent(this, PlayerDetail.class);
+        myIntent.putExtra("nickname", player.getNickname());
         startActivity(myIntent);
     }
 }

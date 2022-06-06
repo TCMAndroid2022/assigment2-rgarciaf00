@@ -19,13 +19,15 @@ public class PlayerController {
 
     public PlayerController(Application application) {
         AppDatabase db = Room.databaseBuilder(application, AppDatabase.class,
-                "database-name").allowMainThreadQueries().build();
+                "database-name").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         playerDAO = db.playerDAO();
         gameDAO = db.gameDAO();
     }
 
     public void insertPlayer(Player player) { playerDAO.insertPlayer(player); }
     public void insertGame(Game game) { gameDAO.insertGame(game); }
+
+    public void updatePlayer(Player player) { playerDAO.updatePlayer(player); }
 
     public List<Player> listPlayers() { return playerDAO.getPlayers(); }
     public Player getPlayer(String nickname) { return playerDAO.getPlayerbyName(nickname); }

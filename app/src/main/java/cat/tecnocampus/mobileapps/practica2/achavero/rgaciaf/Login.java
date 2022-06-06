@@ -38,8 +38,11 @@ public class Login extends AppCompatActivity {
         Player player = playerController.getPlayer(nickname);
 
         if (player == null) {
-            player = new Player(nickname,0);
+            player = new Player(nickname,0, 1);
             playerController.insertPlayer(player);
+        } else {
+            player.setPlays(player.getPlays()+1);
+            playerController.updatePlayer(player);
         }
 
         Intent myIntent = new Intent(this, MainActivity.class);

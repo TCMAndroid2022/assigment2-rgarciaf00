@@ -8,10 +8,10 @@ public class Game {
     @PrimaryKey (autoGenerate = true)
     public int id;
     public String word;
-    public String score;
+    public int score;
     public String nickname;
 
-    public Game(String word, String score, String nickname) {
+    public Game(String word, int score, String nickname) {
         this.word = word;
         this.score = score;
         this.nickname = nickname;
@@ -25,7 +25,7 @@ public class Game {
         return word;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 

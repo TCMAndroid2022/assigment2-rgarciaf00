@@ -8,7 +8,7 @@ import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.contracts.PlayerDAO
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Game;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
-@Database(entities = {Game.class, Player.class}, version = 1)
+@Database(entities = {Game.class, Player.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
         public abstract GameDAO gameDAO();
         public abstract PlayerDAO playerDAO();
