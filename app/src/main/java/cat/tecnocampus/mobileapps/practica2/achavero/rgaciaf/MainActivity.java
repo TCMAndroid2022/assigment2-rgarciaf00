@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void calculatePunctuation(){
         if(gameWord.toUpperCase().equals(etSolve.getText().toString().toUpperCase())){
-            punctuation = ((gameWord.length() - intents)/gameWord.length()*10);
+            punctuation = (int)((wordLetters.size() - intents)/wordLetters.size()*10);
         } else {
             punctuation = 0;
         }
