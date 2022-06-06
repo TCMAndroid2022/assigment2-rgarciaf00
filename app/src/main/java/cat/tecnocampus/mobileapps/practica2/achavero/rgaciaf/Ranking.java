@@ -28,16 +28,15 @@ public class Ranking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_ranking);
+
+        setTitle("RANKING");
+
         recyclerView = (RecyclerView) findViewById(R.id.rvPlayers);
         playerController = new PlayerController(getApplication());
 
         initRecyclerView();
-        //insertFakePlayers();
         showPlayers();
-
-        setTitle("RANKING");
     }
 
     private void initRecyclerView(){
@@ -46,16 +45,6 @@ public class Ranking extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-    }
-
-    private void insertFakePlayers(){
-        for(int i = 0; i < 5; i++){
-            String name = "Player #" + i;
-            int score = i;
-            Player player = new Player(name,score);
-            players.add(player);
-        }
-        rankingAdapter.notifyDataSetChanged();
     }
 
     private void showPlayers(){

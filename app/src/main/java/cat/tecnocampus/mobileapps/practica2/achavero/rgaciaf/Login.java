@@ -21,6 +21,8 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        setTitle("LOGIN");
+
         playerController = new PlayerController(getApplication());
         playerNickname = (EditText) findViewById(R.id.etPlayerNickname);
     }
