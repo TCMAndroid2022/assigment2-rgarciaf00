@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> wordLetters = new ArrayList<>();
     PlayerController playerController;
+
+    RequestQueue queue;
+    private String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
 
     // Layout variables
     TextView tvWord;
@@ -61,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         playerController = new PlayerController(getApplication());
 
+        queue = Volley.newRequestQueue(getApplicationContext());
+
         tvWord = findViewById(R.id.tvWord);
         tvPunctuation = findViewById(R.id.tvPunctuation);
         etWord = findViewById(R.id.etWord);
@@ -68,16 +76,13 @@ public class MainActivity extends AppCompatActivity {
         btEnter = findViewById(R.id.btEnter);
         btSolve = findViewById(R.id.btSolve);
 
-        //getWord();
+        getWord();
         wordToArrayList();
         createInGameWord();
     }
 
     private void getWord() {
-        // Instantiate the RequestQueue
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://palabras-aleatorias-public-api.herokuapp.com/random";
-
+        Log.v("WORD_TEST", "GET WORD");
         // Request a string response from the provided URL
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
@@ -85,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject body = response.getJSONObject("body");
                         gameWord = body.getString("Word").toUpperCase(Locale.ROOT);
+                        Log.v("WORD_TEST", gameWord);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -93,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue
         queue.add(jsonObjectRequest);
-        tvWord.setText("TEST");
-        Log.v("WORD_TEST", "END WORD");
     }
 
     private void wordToArrayList() {

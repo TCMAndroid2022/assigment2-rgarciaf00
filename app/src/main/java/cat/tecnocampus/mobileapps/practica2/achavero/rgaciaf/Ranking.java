@@ -56,6 +56,7 @@ public class Ranking extends AppCompatActivity implements RankingAdapter.OnPlaye
 
     public void PlayAgain(View view) {
         Intent myIntent = new Intent(this, Login.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(myIntent);
     }
 
