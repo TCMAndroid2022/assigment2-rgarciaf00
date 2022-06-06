@@ -13,21 +13,20 @@ import java.util.ArrayList;
 
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.R;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Game;
-import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
 
     private ArrayList<Game> games = new ArrayList<Game>();
 
     public DetailAdapter(ArrayList<Game> games) {
-        this.games = this.games;
+        this.games = games;
     }
 
     // Primary methods of the adapter
     @NonNull
     @Override
     public DetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_player, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail, parent, false);
         return new ViewHolder(view);
     }
 
