@@ -23,10 +23,11 @@ public class PlayerController {
         gameDAO = db.gameDAO();
     }
 
-    public void insertUser(Player player) { playerDAO.insertPlayer(player); }
+    public void insertPlayer(Player player) { playerDAO.insertPlayer(player); }
     public void insertGame(Game game) { gameDAO.insertGame(game); }
 
     public List<Player> listPlayers() { return playerDAO.getPlayers(); }
+    public Player getPlayer(String nickname) { return playerDAO.getPlayerbyName(nickname); }
     public List<Game> listGames() { return gameDAO.getGames(); }
     public List<Game> listPlayerGames(String nickname) { return gameDAO.getPlayerGames(nickname); }
 }

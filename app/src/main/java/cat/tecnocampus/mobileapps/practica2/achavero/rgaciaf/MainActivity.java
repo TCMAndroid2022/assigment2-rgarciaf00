@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue
         queue.add(jsonObjectRequest);
-        tvWord.setText(gameWord);
+        tvWord.setText("TEST");
         Log.v("WORD_TEST", "END WORD");
     }
 
