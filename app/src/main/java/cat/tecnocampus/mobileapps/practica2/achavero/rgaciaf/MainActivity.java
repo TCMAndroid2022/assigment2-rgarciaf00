@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,8 +21,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.IntStream;
 
-import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.adapters.RankingAdapter;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.database.PlayerController;
 import cat.tecnocampus.mobileapps.practica2.achavero.rgaciaf.entities.Player;
 
@@ -30,12 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
     // Layout variables
     TextView tvWord;
+    TextView tvPunctuation;
+    EditText etWord;
+    EditText etSolve;
+    Button btEnter;
+    Button btSolve;
 
     // Game variables
     private String nickname;
     private String gameWord;
-    private String solution;
+    private String[] inGameWord;
     private int intents;
+    private int punctuation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         PlayerController playerController = new PlayerController(getApplication());
         Player player = playerController.getPlayer(nickname);
-        tvWord = findViewById(R.id.test);
-
+        tvWord = findViewById(R.id.tvWord);
+        tvPunctuation = findViewById(R.id.tvPunctuation);
+        etWord = findViewById(R.id.etWord);
+        etSolve= findViewById(R.id.etSolve);
+        btEnter = findViewById(R.id.btEnter);
+        btSolve = findViewById(R.id.btSolve);
         getWord();
-        //wordToArrayList();
+        wordToArrayList();
+        createInGameWord();
     }
 
     private void getWord() {
@@ -85,6 +98,53 @@ public class MainActivity extends AppCompatActivity {
         int length = gameWord.length();
         for (int i = 0; i < length; i++) {
             wordLetters.add(gameWord.substring(i, Math.min(length, i+1)));
+        }
+    }
+
+    private void createInGameWord(){
+        tvWord.setText("");
+        inGameWord = new String[gameWord.length()];
+        for(int i = 0; i < inGameWord.length; i++){
+            inGameWord[i] = "_ ";
+            tvWord.append(inGameWord[i]);
+        }
+    }
+
+    private void changeInGameWord(String letter){
+        tvWord.setText("");
+        int[] indexes = IntStream.range(0, wordLetters.size()).filter(i -> wordLetters.get(i).equals(letter.toUpperCase())).toArray();
+        for(int i = 0; i < indexes.length; i++){
+            inGameWord[indexes[i]] = letter.toUpperCase();
+        }
+        for(int i = 0; i < inGameWord.length; i++){
+            tvWord.append(inGameWord[i]);
+        }
+    }
+
+    public void onClickEnter(View view){
+        String letter = etWord.getText().toString();
+        if(wordLetters.contains(letter.toUpperCase())){
+            changeInGameWord(letter);
+        }
+        etWord.setText("");
+        intents++;
+    }
+
+    public void onClickSolve(View view){
+        calculatePunctuation();
+        tvPunctuation.append("" + punctuation);
+        tvWord.setText("The word was " + gameWord);
+        etWord.setVisibility(View.INVISIBLE);
+        btEnter.setVisibility(View.INVISIBLE);
+        etSolve.setVisibility(View.INVISIBLE);
+        btSolve.setVisibility(View.INVISIBLE);
+    }
+
+    private void calculatePunctuation(){
+        if(gameWord.toUpperCase().equals(etSolve.getText().toString().toUpperCase())){
+            punctuation = ((gameWord.length() - intents)/gameWord.length()*10);
+        } else {
+            punctuation = 0;
         }
     }
 
